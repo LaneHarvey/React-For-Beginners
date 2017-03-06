@@ -37,7 +37,7 @@ class App extends React.Component {
         order: JSOPN.parse(localStorageRef)
       });
     }
-    
+
   }
 
   componentWillUnmount() {
@@ -91,7 +91,7 @@ class App extends React.Component {
           order={this.state.order}
           params={this.props.params}
           />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} fishes={this.state.fishes} />
       </div>
     )
   }
