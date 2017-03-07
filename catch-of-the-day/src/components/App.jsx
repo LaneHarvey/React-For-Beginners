@@ -17,7 +17,6 @@ class App extends React.Component {
     this.addToOrder = this.addToOrder.bind(this);
     this.removeFromOrder = this.removeFromOrder.bind(this);
 
-
     // initial state
     this.state = {
       fishes: {},
@@ -124,6 +123,10 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
 }
 
 export default App;
