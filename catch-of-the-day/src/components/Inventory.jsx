@@ -10,7 +10,12 @@ class Inventory extends React.Component {
 
   handleChange(e, key) {
     const fish = this.props.fishes[key];
-    console.log(fish);
+    // take a copy of that fish and update it with the new data
+    const updatedFish = {
+      ...fish,
+      [e.target.name]: e.target.value
+     }
+     this.props.updateFish(key, updatedFish);
   }
 
   renderInventory(key) {
@@ -18,9 +23,9 @@ class Inventory extends React.Component {
     return (
       <div className="fish-edit" key={key}>
         <input type="text" name="name" value={fish.name} placeholder="Fish Name" onChange={(e) => this.handleChange(e, key)}/>
-        <input type="text" name="price" value={fish.price} placeholder="Fish Price"/>
+        <input type="text" name="price" value={fish.price} placeholder="Fish Price" onChange={(e) => this.handleChange(e, key)}/>
 
-        <select type="text" name="status" value={fish.status} placeholder="Fish Status">
+        <select type="text" name="status" value={fish.status} placeholder="Fish Status" onChange={(e) => this.handleChange(e, key)}>
           <option value="available">Fresh!</option>
           <option value="unavailable">Sold Out!!</option>
         </select>
