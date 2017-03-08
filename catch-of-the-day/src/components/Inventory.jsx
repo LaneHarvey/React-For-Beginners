@@ -8,6 +8,7 @@ class Inventory extends React.Component {
     this.renderInventory = this.renderInventory.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
     this.authenticate = this.authenticate.bind(this);
+    this.logout = this.logout.bind(this);
     this.authHandler = this.authHandler.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -104,7 +105,7 @@ class Inventory extends React.Component {
   }
 
   render() {
-    const logout = <button>Log Out!</button>;
+    const logout = <button onClick={this.logout}>Log Out!</button>;
 
     // check if they are not logged in at all
     if(!this.state.uid) {
