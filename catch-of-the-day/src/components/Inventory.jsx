@@ -1,11 +1,13 @@
 import React from 'react';
 import AddFishForm from './AddFishForm';
+import base from '../base'
 
 class Inventory extends React.Component {
   constructor() {
     super();
     this.renderInventory = this.renderInventory.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
+    this.authenticate = this.authenticate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       uid: null,
@@ -21,6 +23,15 @@ class Inventory extends React.Component {
       [e.target.name]: e.target.value
      }
      this.props.updateFish(key, updatedFish);
+  }
+
+  authenticate(provider) {
+    console.log(`Trying to log in with ${provider}`);
+    base.AuthWithOAuthPopup(provider, this.authHandler);
+  }
+
+  authHandler(err, authData) {
+    console.log(authData);
   }
 
   renderLogin() {
@@ -54,7 +65,8 @@ class Inventory extends React.Component {
   }
 
   render() {
-    const logout = <button>Log Out!</button>
+    const logout = <button>Log Out!</button>;
+
     // check if they are not logged in at all
     if(!this.state.uid) {
       return <div>{this.renderLogin()}</div>
@@ -65,12 +77,15 @@ class Inventory extends React.Component {
       return (
         <div>
           <p>Sorry you aren't the owner of this store!</p>
+          {logout}
         </div>
       )
     }
+
     return (
       <div>
         <h2>Inventory</h2>
+        {logout}
         {Object.keys(this.props.fishes).map(this.renderInventory)}
         <AddFishForm addFish={this.props.addFish}/>
         <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
