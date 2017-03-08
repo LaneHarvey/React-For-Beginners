@@ -16,6 +16,14 @@ class Inventory extends React.Component {
     }
   }
 
+  componentDidMount() {
+    base.onAuth((user) => {
+      if(user) {
+        this.authHandler(null, { user })
+      }
+    });
+  }
+
   handleChange(e, key) {
     const fish = this.props.fishes[key];
     // take a copy of that fish and update it with the new data
@@ -29,6 +37,11 @@ class Inventory extends React.Component {
   authenticate(provider) {
     console.log(`Trying to log in with ${provider}`);
     base.AuthWithOAuthPopup(provider, this.authHandler);
+  }
+
+  logout() {
+    base.unauth();
+    this.setState({ uid: null });
   }
 
   authHandler(err, authData) {
@@ -51,6 +64,11 @@ class Inventory extends React.Component {
           owner: authData.user.uid
         });
       }
+
+      this.setState({
+        uid: authData.user.uid,
+        owner: data.owner || authData.user.uid
+      })
     });
 
   }
